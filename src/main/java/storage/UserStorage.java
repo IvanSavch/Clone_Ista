@@ -9,7 +9,7 @@ public class UserStorage {
         try {
             Connection connection =
                     DriverManager.getConnection("jdbc:postgresql://localhost:5432/postgres","postgres","root");
-            PreparedStatement preparedStatement = connection.prepareStatement("insert into 'Account' values (default,?,?,?)");
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into user_tb values (default,?,?,?)");
             preparedStatement.setString(1,user.getName());
             preparedStatement.setString(2,user.getUserName());
             preparedStatement.setString(3,user.getPassword());
