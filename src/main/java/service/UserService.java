@@ -1,12 +1,17 @@
 package service;
 
 import model.User;
-import storage.UserStorage;
+import repository.UserRepository;
+
+import java.util.Optional;
 
 public class UserService {
-    private final UserStorage userStorage = new UserStorage();
+    private final UserRepository userRepository = new UserRepository();
 
     public void save(User user){
-        userStorage.addUser(user);
+        userRepository.addUser(user);
+    }
+    public Optional<User> findByUserName(String userName){
+       return userRepository.findByUserName(userName);
     }
 }
