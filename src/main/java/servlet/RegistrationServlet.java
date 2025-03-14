@@ -37,7 +37,7 @@ public class RegistrationServlet extends HttpServlet {
             resp.sendRedirect("/");
         } else {
             req.setAttribute("message", "This user already exists");
-            RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/home.jsp");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/Home.jsp");
             dispatcher.forward(req, resp);
         }
     }

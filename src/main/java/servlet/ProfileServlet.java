@@ -7,11 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/")
-public class HomeServlet extends HttpServlet {
-
+@WebServlet("/profile")
+public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/pages/Home.jsp").forward(req,resp);
+        getServletContext().getRequestDispatcher("/pages/Profile.jsp").forward(req, resp);
     }
 }
