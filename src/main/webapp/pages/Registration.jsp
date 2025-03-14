@@ -12,5 +12,6 @@
     <input type="password" name="password" placeholder="password">
     <button>enter</button>
 </form>
+<p>${message}</p>
 </body>
 </html>

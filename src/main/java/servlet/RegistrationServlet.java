@@ -1,9 +1,9 @@
 package servlet;
 
-import exeption.DuplicateUserName;
 import model.User;
 import service.UserService;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,12 +26,19 @@ public class RegistrationServlet extends HttpServlet {
         String userName = req.getParameter("userName");
         String password = req.getParameter("password");
 
-        if (userService.findByUserName(userName).isEmpty()) {
+        if (name == null || userName == null || password == null
+                || name.equals("") || userName.equals("") || password.equals("")) {
+            req.setAttribute("message", "All fields are required");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/Registration.jsp");
+            dispatcher.forward(req, resp);
+        } else if (userService.findByUserName(userName).isEmpty()) {
             User user = new User(name, userName, password);
             userService.save(user);
             resp.sendRedirect("/");
-        }else {
-            resp.sendRedirect("/pages/error/duplicate.jsp");
+        } else {
+            req.setAttribute("message", "This user already exists");
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/pages/home.jsp");
+            dispatcher.forward(req, resp);
         }
     }
 }

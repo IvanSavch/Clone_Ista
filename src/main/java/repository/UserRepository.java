@@ -22,12 +22,12 @@ public class UserRepository {
         }
     }
 
-    public Optional<User> findByUserName(String userNa) {
+    public Optional<User> findByUserName(String userName) {
         try {
             Connection connection = ConnectionImpl.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement("select * from user_tb u where u.user_name = ?");
-            preparedStatement.setString(1, userNa);
+            preparedStatement.setString(1, userName);
 
             ResultSet resultSet = preparedStatement.executeQuery();
             Optional<User> user = Optional.empty();

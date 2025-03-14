@@ -13,5 +13,6 @@
 <body>
 <a href="/registration"> Registration</a>
 <a href="/login"> Login</a>
+<p>${message}</p>
 </body>
 </html>
