@@ -29,6 +29,7 @@ public class LoginServlet extends HttpServlet {
         } else {
             User user = userService.findByUserName(userName).get();
             if (user.getPassword().equals(password)){
+                req.getSession().setAttribute("user",user);
                 resp.sendRedirect("/profile");
             }else {
                 req.setAttribute("message","wrong user name or password");

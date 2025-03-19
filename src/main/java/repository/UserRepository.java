@@ -45,4 +45,16 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public void uploadProfilePicture(User user) {
+        Connection connection = ConnectionImpl.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("update user_tb set photo = ? where id = ?");
+            preparedStatement.setBytes(1, user.getProfilePhoto());
+            preparedStatement.setLong(2, user.getId());
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

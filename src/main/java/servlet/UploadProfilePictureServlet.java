@@ -5,25 +5,32 @@ import service.ImageUtil;
 import service.UserService;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
+import javax.servlet.http.Part;
 import java.io.IOException;
 
-@WebServlet("/profile")
-public class ProfileServlet extends HttpServlet {
+@WebServlet("/uploadPicture")
+@MultipartConfig()
+public class UploadProfilePictureServlet extends HttpServlet {
     private final UserService userService = new UserService();
     private final ImageUtil util = new ImageUtil();
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        User user = userService.getCurrentUser(req);
+        getServletContext().getRequestDispatcher("/pages/UploadPicture.jsp").forward(req, resp);
+    }
 
-        if (user.getProfilePhoto() != null){
-            String profilePhoto = util.convertToBase64(user.getProfilePhoto());
-            req.setAttribute("photo",profilePhoto);
-        }
-        getServletContext().getRequestDispatcher("/pages/Profile.jsp").forward(req, resp);
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        User user = userService.getCurrentUser(req);
+        Part photo = req.getPart("photo");
+
+        byte[] bytePhoto = util.convertToByteArray(photo.getInputStream());
+        userService.updateAvatar(bytePhoto, user);
+        resp.sendRedirect("/profile");
     }
 }
