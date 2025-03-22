@@ -1,21 +1,21 @@
 <%--
   Created by IntelliJ IDEA.
   User: Savva
-  Date: 14.03.2025
-  Time: 18:38
+  Date: 22.03.2025
+  Time: 21:48
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 <head>
-    <title>Profile</title>
+    <title>Post</title>
 </head>
 <body>
-<img src="data:image/jpeg;base64,${photo}">
-<a href="/uploadPicture">upload</a>
-<p>${sessionScope.user.name}</p>
-<br>
-<a href="/post">Add post</a>
+<form method="post" action="/post" enctype="multipart/form-data">
+  <input type="file" name="photo">
+  <input type="text" name="description" placeholder="description">
+  <button>Upload</button>
+</form>
 </body>
 </html>

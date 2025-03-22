@@ -3,6 +3,8 @@ package model;
 import lombok.Data;
 import lombok.Lombok;
 
+import java.util.List;
+
 @Data
 public class User {
     private Long id;
@@ -10,6 +12,7 @@ public class User {
     private String userName;
     private String password;
     private byte[] profilePhoto;
+    private List<Post> posts;
 
     public User(String name, String userName, String password) {
         this.name = name;
