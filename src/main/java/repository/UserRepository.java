@@ -22,6 +22,31 @@ public class UserRepository {
         }
     }
 
+    public Optional<User> getUserById(Long id){
+        try {
+            Connection connection = ConnectionImpl.getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement("select * from user_tb u where u.id = ?");
+            preparedStatement.setLong(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+
+            Optional<User> user = Optional.empty();
+
+            while (resultSet.next()) {
+                Long userId = resultSet.getLong(1);
+                String name = resultSet.getString(2);
+                String userN = resultSet.getString(3);
+                String password = resultSet.getString(4);
+                user = Optional.of(new User(userId, name, userN, password));
+            }
+
+            return user;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public Optional<User> findByUserName(String userName) {
         try {
             Connection connection = ConnectionImpl.getConnection();

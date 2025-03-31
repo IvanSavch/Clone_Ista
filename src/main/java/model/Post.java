@@ -16,4 +16,11 @@ public class Post {
         this.picture = picture;
         this.user = user;
     }
+
+    public Post(Long id, String description, byte[] picture, User user) {
+        this.id = id;
+        this.description = description;
+        this.picture = picture;
+        this.user = user;
+    }
 }

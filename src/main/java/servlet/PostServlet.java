@@ -32,7 +32,7 @@ public class PostServlet extends HttpServlet {
         User user = userService.getCurrentUser(req);
         String description = req.getParameter("description");
 
-        Part photo = req.getPart("photo");
+        Part photo = req.getPart("postPhoto");
         byte[] bytes = util.convertToByteArray(photo.getInputStream());
 
         Post post = new Post(description,bytes,user);

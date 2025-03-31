@@ -13,7 +13,7 @@
 </head>
 <body>
 <form method="post" action="/post" enctype="multipart/form-data">
-  <input type="file" name="photo">
+  <input type="file" name="postPhoto">
   <input type="text" name="description" placeholder="description">
   <button>Upload</button>
 </form>
