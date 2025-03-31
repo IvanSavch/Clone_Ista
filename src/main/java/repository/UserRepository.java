@@ -57,4 +57,21 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
     }
+
+    public byte[] getPhotoByUserId(long id) {
+        Connection connection = ConnectionImpl.getConnection();
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement("select photo from user_tb u where u.id = ?");
+            preparedStatement.setLong(1, id);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            byte[] photo = new byte[]{};
+            while (resultSet.next()) {
+                photo = resultSet.getBytes(1);
+            }
+            return photo;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

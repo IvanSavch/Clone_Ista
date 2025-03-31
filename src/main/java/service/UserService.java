@@ -11,21 +11,26 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository = new UserRepository();
 
-    public void save(User user){
+    public void save(User user) {
         userRepository.addUser(user);
     }
-    public Optional<User> findByUserName(String userName){
-       return userRepository.findByUserName(userName);
+
+    public Optional<User> findByUserName(String userName) {
+        return userRepository.findByUserName(userName);
     }
 
     public User getCurrentUser(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
 
-        return user;
+        return (User) session.getAttribute("user");
     }
-    public void updateAvatar(byte[] imagePhoto,User user) {
+
+    public void updateAvatar(byte[] imagePhoto, User user) {
         user.setProfilePhoto(imagePhoto);
         userRepository.uploadProfilePicture(user);
+    }
+
+    public byte[] getUserPhotoByUserId(Long id) {
+        return userRepository.getPhotoByUserId(id);
     }
 }

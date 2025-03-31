@@ -22,6 +22,7 @@ public class ProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         User user = userService.getCurrentUser(req);
+        user.setProfilePhoto(userService.getUserPhotoByUserId(user.getId()));
         List<Post> userPost = user.getPosts();
 
         /// TODO: 22.03.2025 сделать поиск фото в бд через user id
