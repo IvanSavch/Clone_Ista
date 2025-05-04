@@ -32,7 +32,6 @@ public class ProfileServlet extends HttpServlet {
             String profilePhoto = util.convertToBase64(user.getProfilePhoto());
             req.setAttribute("profilePhoto",profilePhoto);
         }
-        // TODO: 22.03.2025 отобразить пост и создать поиск поста через user id
         if (user.getPosts() != null) {
             List<String> postPicture = new ArrayList<>();
             for (Post post:user.getPosts()) {

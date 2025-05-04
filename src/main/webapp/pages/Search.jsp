@@ -14,7 +14,7 @@
 <body>
 <form action="/userPage" method="get">
   <input type="text" name="userName" placeholder="userName">
-  <button>sub</button>
+  <button>enter</button>
 </form>
 </body>
 </html>
