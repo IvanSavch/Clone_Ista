@@ -20,6 +20,9 @@
 <br>
 <a href="/post">Add post</a>
 <br>
+<a href="/search"></a>
+<br>
+
 <%--<c:forEach items="${postPicture}" var="pictures">--%>
 <%--    <img src="data:image/jpeg;base64,${pictures}">--%>
 <%--</c:forEach>--%>
