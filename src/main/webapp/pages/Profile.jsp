@@ -20,14 +20,11 @@
 <br>
 <a href="/post">Add post</a>
 <br>
-<a href="/search"></a>
+<a href="/search">search</a>
 <br>
+<a href="/subscriptions">subscriptions</a>
 
-<%--<c:forEach items="${postPicture}" var="pictures">--%>
-<%--    <img src="data:image/jpeg;base64,${pictures}">--%>
-<%--</c:forEach>--%>
-
-<c:forEach items="${posts}" var="post">
+<c:forEach items="${user.getPosts}" var="post">
     <c:set var="imgByte" value="${Base64.getEncoder().encodeToString(post.picture)}" />
     <img src="data:image/jpeg;base64,${imgByte}">
     <li>${post.description}</li>

@@ -14,15 +14,23 @@
 </head>
 <body>
 <div>
-<img src="data:image/jpeg;base64,${userPicture}">
+    <img src="data:image/jpeg;base64,${userPicture}">
+    <br>
+
+    <form method="post" action="userPage">
+        <input type="hidden" name="userName" value="${userName}">
+        <button>sub</button>
+    </form>
+    <br>
+
+    <c:forEach items="${users}" var="user">
+        <c:set var="imgByte" value="${Base64.getEncoder().encodeToString(user.picture)}"/>
+        <img src="data:image/jpeg;base64,${imgByte}">
+        <li>${user.description}</li>
+    </c:forEach>
+</div>
 <br>
 
-<c:forEach items="${users}" var="user">
-    <c:set var="imgByte" value="${Base64.getEncoder().encodeToString(user.picture)}"/>
-    <img src="data:image/jpeg;base64,${imgByte}">
-    <li>${user.description}</li>
-</c:forEach>
-</div>
 <p>${notFound}</p>
 </body>
 </html>

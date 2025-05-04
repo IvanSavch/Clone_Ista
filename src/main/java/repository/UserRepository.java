@@ -3,6 +3,8 @@ package repository;
 import model.User;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class UserRepository {
@@ -99,4 +101,5 @@ public class UserRepository {
             throw new RuntimeException(e);
         }
     }
+
 }

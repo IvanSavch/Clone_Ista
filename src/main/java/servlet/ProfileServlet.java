@@ -4,6 +4,7 @@ import model.Post;
 import model.User;
 import service.ImageUtil;
 import service.PostService;
+import service.SubscriptionService;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import java.util.List;
 public class ProfileServlet extends HttpServlet {
     private final UserService userService = new UserService();
     private final PostService postService = new PostService();
+    private final SubscriptionService subscriptionService = new SubscriptionService();
     private final ImageUtil util = new ImageUtil();
 
     @Override
@@ -27,19 +29,15 @@ public class ProfileServlet extends HttpServlet {
         User user = userService.getCurrentUser(req);
         user.setProfilePhoto(userService.getUserPhotoByUserId(user.getId()));
         user.setPosts(postService.getPostByUserId(user));
+        user.setSubscriptions(subscriptionService.getSubscriptions(user));
 
-        if (user.getProfilePhoto() != null){
+        if (user.getProfilePhoto() != null) {
             String profilePhoto = util.convertToBase64(user.getProfilePhoto());
-            req.setAttribute("profilePhoto",profilePhoto);
+            req.setAttribute("profilePhoto", profilePhoto);
         }
-        if (user.getPosts() != null) {
-            List<String> postPicture = new ArrayList<>();
-            for (Post post:user.getPosts()) {
-                postPicture.add(util.convertToBase64(post.getPicture()));
-            }
-            req.setAttribute("postPicture",postPicture);
-            req.setAttribute("posts", user.getPosts());
-        }
+
+            req.setAttribute("user", user);
+
 
         getServletContext().getRequestDispatcher("/pages/Profile.jsp").forward(req, resp);
     }

@@ -4,6 +4,7 @@ import model.Post;
 import model.User;
 import service.ImageUtil;
 import service.PostService;
+import service.SubscriptionService;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -19,6 +20,7 @@ import java.util.Optional;
 public class UserPageServlet extends HttpServlet {
     private final PostService postService = new PostService();
     private final UserService userService = new UserService();
+    private final SubscriptionService subscriptionService = new SubscriptionService();
     private final ImageUtil util = new ImageUtil();
 
 
@@ -27,20 +29,35 @@ public class UserPageServlet extends HttpServlet {
         String userName = req.getParameter("userName");
         Optional<User> byUserName = userService.findByUserName(userName);
         if (byUserName.isEmpty()) {
-            req.setAttribute("notFound","user not found");
-        }else {
+            req.setAttribute("notFound", "user not found");
+        } else {
             User user = byUserName.get();
             user.setProfilePhoto(userService.getUserPhotoByUserId(user.getId()));
             user.setPosts(postService.getPostByUserId(user));
             String userPicture = util.convertToBase64(user.getProfilePhoto());
-            req.setAttribute("users",user.getPosts());
-            req.setAttribute("userPicture",userPicture);
+            req.setAttribute("users", user.getPosts());
+            req.setAttribute("userPicture", userPicture);
+            req.setAttribute("userName",user.getUserName());
         }
         getServletContext().getRequestDispatcher("/pages/UserPage.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+        User myUser = userService.getCurrentUser(req);
+        String userName = req.getParameter("userName");
+        List<String> userNameList = myUser.getSubscriptions();
+        if (userService.findByUserName(userName).isEmpty()) {
+            resp.sendRedirect("/pages/error/Error.jsp");
+        } else {
+            subscriptionService.addSubscription(userName, myUser.getId());
+        }
+        //TODO доделать удоление подписки
+        for (String name:userNameList) {
+            if (name.equals(userName)){
+                subscriptionService.deleteSubscription(userName);
+            }
+        }
+        resp.sendRedirect("/userPage?userName=" + userName);
     }
 }
