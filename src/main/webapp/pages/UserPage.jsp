@@ -22,7 +22,8 @@
         <button>sub</button>
     </form>
     <br>
-
+    <a href="http://localhost:8090/subscription?userName=${userName}"> subscription </a>
+    <br>
     <c:forEach items="${users}" var="user">
         <c:set var="imgByte" value="${Base64.getEncoder().encodeToString(user.picture)}"/>
         <img src="data:image/jpeg;base64,${imgByte}">
