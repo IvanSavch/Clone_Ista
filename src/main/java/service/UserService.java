@@ -2,15 +2,14 @@ package service;
 
 import model.User;
 import repository.UserRepository;
+import repository.UserRepositoryImpl;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.Base64;
-import java.util.List;
 import java.util.Optional;
 
 public class UserService {
-    private final UserRepository userRepository = new UserRepository();
+    private final UserRepository userRepository = new UserRepositoryImpl();
 
     public void save(User user) {
         userRepository.addUser(user);

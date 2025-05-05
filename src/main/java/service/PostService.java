@@ -3,12 +3,12 @@ package service;
 import model.Post;
 import model.User;
 import repository.PostRepository;
+import repository.PostRepositoryImpl;
 
 import java.util.List;
-import java.util.Optional;
 
 public class PostService {
-    private final PostRepository postRepository = new PostRepository();
+    private final PostRepository postRepository = new PostRepositoryImpl();
 
     public void addPost(Post post) {
         postRepository.addPost(post);

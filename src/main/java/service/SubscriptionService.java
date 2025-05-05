@@ -2,11 +2,12 @@ package service;
 
 import model.User;
 import repository.SubscriptionRepository;
+import repository.SubscriptionRepositoryImpl;
 
 import java.util.List;
 
 public class SubscriptionService {
-    private final SubscriptionRepository subscriptionRepository = new SubscriptionRepository();
+    private final SubscriptionRepository subscriptionRepository = new SubscriptionRepositoryImpl();
     public void addSubscription(String userName,long userId){
         subscriptionRepository.addSubscription(userName,userId);
     }
