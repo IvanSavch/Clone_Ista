@@ -14,7 +14,7 @@ public class User {
     private byte[] profilePhoto;
     private List<Post> posts;
     private List<String> subscriptions;
-    private List<String> subscribers;
+
 
     public User(String name, String userName, String password) {
         this.name = name;
