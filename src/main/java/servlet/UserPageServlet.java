@@ -37,9 +37,9 @@ public class UserPageServlet extends HttpServlet {
             String userPicture = util.convertToBase64(user.getProfilePhoto());
             req.setAttribute("users", user.getPosts());
             req.setAttribute("userPicture", userPicture);
-            req.setAttribute("userName",user.getUserName());
+            req.setAttribute("userName", user.getUserName());
         }
-        getServletContext().getRequestDispatcher("/pages/UserPage.jsp").forward(req,resp);
+        getServletContext().getRequestDispatcher("/pages/UserPage.jsp").forward(req, resp);
     }
 
     @Override
@@ -49,15 +49,18 @@ public class UserPageServlet extends HttpServlet {
         List<String> userNameList = myUser.getSubscriptions();
         if (userService.findByUserName(userName).isEmpty()) {
             resp.sendRedirect("/pages/error/Error.jsp");
-        } else {
+        } else if (userNameList.isEmpty()){
             subscriptionService.addSubscription(userName, myUser.getId());
-        }
-        //TODO доделать удоление подписки
-        for (String name:userNameList) {
-            if (name.equals(userName)){
-                subscriptionService.deleteSubscription(userName);
+            userNameList.add(userName);
+        }else {
+            for (String name : userNameList) {
+                if (name.equals(userName)) {
+                    subscriptionService.deleteSubscription(userName);
+                }
             }
+            userNameList.remove(userName);
         }
+
         resp.sendRedirect("/userPage?userName=" + userName);
     }
 }
