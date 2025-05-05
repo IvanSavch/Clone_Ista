@@ -22,7 +22,7 @@
 <br>
 <a href="/search">search</a>
 <br>
-<a href="/subscriptions">subscriptions</a>
+<a href="http://localhost:8090/subscription?userName=${user.getUserName()}"> subscription </a>
 
 <c:forEach items="${user.getPosts}" var="post">
     <c:set var="imgByte" value="${Base64.getEncoder().encodeToString(post.picture)}" />
